@@ -2,6 +2,17 @@
 
 基于 Spring Boot 3、Spring Cloud Alibaba、MyBatis-Plus、Sa-Token、Vue 3、Element Plus 构建的 CRM 微服务系统。项目包含认证、客户、销售、营销、服务、线索、工作流、网关和前端应用，覆盖客户全生命周期管理、销售自动化、营销自动化、工单服务、线索评分和流程自动化。
 
+<img width="2560" height="1397" alt="8cf666c63791d25701c80c2a0dd80f3c" src="https://github.com/user-attachments/assets/ecaa0e11-7955-4dc9-a774-09a293cf131f" />
+<img width="2435" height="1103" alt="2d9fd51fb4247960f5abf2b060961138" src="https://github.com/user-attachments/assets/5877e8db-5a2c-488b-9207-c42b73591349" />
+<img width="2446" height="936" alt="2f8934899e388af2351bc3146e896e29" src="https://github.com/user-attachments/assets/305c42ec-cff1-46c1-b6a9-8a4c90db8af9" />
+<img width="2444" height="1209" alt="6776ff75fcdf4bbe9e2b23fae110b3f4" src="https://github.com/user-attachments/assets/85bd8b98-df83-49c0-9860-ad2b840db303" />
+<img width="2448" height="1129" alt="b2c4eebdcbb068f9be004e9aa8c4eaa1" src="https://github.com/user-attachments/assets/e3b13c11-e0cd-40e4-ad2d-953ab8dca310" />
+<img width="2443" height="1214" alt="7b344eaef5fd0d49f7a1d65fee6f7d2d" src="https://github.com/user-attachments/assets/2d872bf6-77e7-4c87-b5b1-0e1333568a06" />
+<img width="1749" height="709" alt="3f130e1ebdd3ec34e290204745a1b269" src="https://github.com/user-attachments/assets/74c73761-825e-4e5b-85ad-ad3e6e1aaf51" />
+<img width="1723" height="754" alt="24c927386e9d600b9438974314fbae85" src="https://github.com/user-attachments/assets/ebaade18-62ba-4de0-ba5a-2de2a2058a06" />
+<img width="1823" height="522" alt="fa64594ce9124b9ca8d54c1c9688a99b" src="https://github.com/user-attachments/assets/f53f5fde-c85c-44f4-aae9-230456b546c3" />
+
+
 ## 项目结构
 
 ```text
