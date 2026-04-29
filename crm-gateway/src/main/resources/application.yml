@@ -1,0 +1,204 @@
+spring:
+  application:
+    name: crm-gateway
+  config:
+    import:
+      - optional:classpath:application-common.yml
+  main:
+    web-application-type: reactive
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+      - com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration
+
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+        server-addr: 127.0.0.1:8848
+        namespace: dev
+        username: nacos  # 默认用户名
+        password: 123456  # 默认密码
+      config:
+        enabled: false
+        server-addr: 127.0.0.1:8848
+        namespace: dev
+        file-extension: yaml
+        username: nacos  # 默认用户名
+        password: 123456  # 默认密码
+
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      routes:
+        # 认证服务
+        - id: crm-auth
+          uri: http://127.0.0.1:8087
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+
+        # 客户管理
+        - id: crm-customer
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/api/customer/**
+          filters:
+            - StripPrefix=1
+
+        # 销售自动化
+        - id: crm-sales
+          uri: http://127.0.0.1:8082
+          predicates:
+            - Path=/api/sales/**
+          filters:
+            - StripPrefix=1
+
+        # 营销自动化
+        - id: crm-marketing
+          uri: http://127.0.0.1:8083
+          predicates:
+            - Path=/api/marketing/**
+          filters:
+            - StripPrefix=1
+
+        # 客户服务
+        - id: crm-service
+          uri: http://127.0.0.1:8084
+          predicates:
+            - Path=/api/service/**
+          filters:
+            - StripPrefix=1
+
+        # 线索管理
+        - id: crm-leads
+          uri: http://127.0.0.1:8085
+          predicates:
+            - Path=/api/leads/**
+          filters:
+            - StripPrefix=1
+
+        # 工作流
+        - id: crm-workflow
+          uri: http://127.0.0.1:8086
+          predicates:
+            - Path=/api/workflow/**
+          filters:
+            - StripPrefix=1
+
+        # 系统管理 (crm-auth)
+        - id: crm-system
+          uri: http://127.0.0.1:8087
+          predicates:
+            - Path=/api/system/**
+          filters:
+            - StripPrefix=1
+
+        # SSE 推送 (连接到 crm-auth)
+        - id: crm-sse
+          uri: http://127.0.0.1:8087
+          predicates:
+            - Path=/api/sse/**
+          filters:
+            - StripPrefix=1
+
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8858
+      eager: true
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      timeout: 3000
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+
+crm:
+  gateway:
+    sentinel:
+      enabled: true
+      route-rules:
+        - route-id: crm-auth
+          path: /api/auth
+          qps: 100
+          burst: 20
+        - route-id: crm-customer
+          path: /api/customer
+          qps: 200
+          burst: 40
+        - route-id: crm-sales
+          path: /api/sales
+          qps: 150
+          burst: 30
+        - route-id: crm-marketing
+          path: /api/marketing
+          qps: 120
+          burst: 20
+        - route-id: crm-service
+          path: /api/service
+          qps: 150
+          burst: 30
+        - route-id: crm-leads
+          path: /api/leads
+          qps: 150
+          burst: 30
+        - route-id: crm-workflow
+          path: /api/workflow
+          qps: 80
+          burst: 10
+        - route-id: crm-system
+          path: /api/system
+          qps: 80
+          burst: 10
+        - route-id: crm-sse
+          path: /api/sse
+          qps: 200
+          burst: 40
+      api-rules:
+        - api-name: auth-login
+          path: /api/auth/login
+          match-strategy: exact
+          qps: 20
+          burst: 5
+        - api-name: sales-stats-report
+          path: /api/sales/sales/stats/report
+          match-strategy: exact
+          qps: 30
+          burst: 5
+        - api-name: marketing-campaign-report
+          path: /api/marketing/marketing/campaign/report
+          match-strategy: exact
+          qps: 30
+          burst: 5
+        - api-name: sales-order-import
+          path: /api/sales/sales/order/import
+          match-strategy: exact
+          qps: 5
+          burst: 2
+        - api-name: sales-platform-sync
+          path: /api/sales/sales/platform/config/.*/sync
+          match-strategy: regex
+          qps: 10
+          burst: 2
+
+server:
+  port: 8090
+
+# Sa-Token 配置
+sa-token:
+  is-log: false
+  alone-redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+    timeout: 3000

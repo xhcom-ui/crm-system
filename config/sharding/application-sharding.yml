@@ -1,0 +1,11 @@
+# Optional profile sample for high-volume deployments.
+# Copy this file into a service's resources directory, copy crm-sharding.yaml to
+# resources/sharding/crm-sharding.yaml, then start that service with
+# --spring.profiles.active=sharding after physical shards are created.
+spring:
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:sharding/crm-sharding.yaml
+
+# Add this dependency only in services that enable the sharding profile:
+# org.apache.shardingsphere:shardingsphere-jdbc-core:5.4.1

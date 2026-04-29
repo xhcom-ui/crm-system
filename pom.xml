@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.crm</groupId>
+        <artifactId>crm-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>crm-parent/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>crm-system</artifactId>
+    <packaging>pom</packaging>
+    <name>CRM System</name>
+    <description>CRM System Aggregator</description>
+
+    <modules>
+        <module>crm-auth</module>
+        <module>crm-common</module>
+        <module>crm-gateway</module>
+        <module>crm-customer</module>
+        <module>crm-sales</module>
+        <module>crm-marketing</module>
+        <module>crm-service</module>
+        <module>crm-leads</module>
+        <module>crm-workflow</module>
+        <module>crm-starter</module>
+    </modules>
+
+</project>

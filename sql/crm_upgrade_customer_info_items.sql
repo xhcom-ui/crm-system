@@ -1,0 +1,31 @@
+USE crm_customer;
+
+CREATE TABLE IF NOT EXISTS crm_customer_info_item (
+    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    module_type VARCHAR(30) NOT NULL COMMENT '模块类型 identity/address/relationship/contact/website',
+    customer_name VARCHAR(80) NOT NULL COMMENT '客户名称',
+    title VARCHAR(160) DEFAULT NULL COMMENT '标题',
+    relation VARCHAR(80) DEFAULT NULL COMMENT '关系',
+    target VARCHAR(160) DEFAULT NULL COMMENT '关系对象',
+    identity_type VARCHAR(50) DEFAULT NULL COMMENT '证件类型',
+    identity_no VARCHAR(120) DEFAULT NULL COMMENT '证件号',
+    birthday VARCHAR(30) DEFAULT NULL COMMENT '生日',
+    gender VARCHAR(20) DEFAULT NULL COMMENT '性别',
+    email VARCHAR(120) DEFAULT NULL COMMENT '邮箱',
+    phone VARCHAR(50) DEFAULT NULL COMMENT '电话',
+    province VARCHAR(80) DEFAULT NULL COMMENT '省',
+    city VARCHAR(80) DEFAULT NULL COMMENT '市',
+    district VARCHAR(80) DEFAULT NULL COMMENT '区县',
+    address VARCHAR(300) DEFAULT NULL COMMENT '详细地址',
+    website VARCHAR(300) DEFAULT NULL COMMENT '网站',
+    blog VARCHAR(300) DEFAULT NULL COMMENT '博客',
+    content_preference VARCHAR(300) DEFAULT NULL COMMENT '内容偏好',
+    contact_type VARCHAR(60) DEFAULT NULL COMMENT '联系类型',
+    description TEXT DEFAULT NULL COMMENT '说明',
+    event_time VARCHAR(80) DEFAULT NULL COMMENT '发生时间',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (id),
+    INDEX idx_module_type (module_type),
+    INDEX idx_customer_name (customer_name),
+    INDEX idx_create_time (create_time)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='客户信息模块明细表';

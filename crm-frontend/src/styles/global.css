@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  height: 100%;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', Arial, sans-serif;
+  color: #111827;
+  background: #f3f6fb;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.search-card,
+.table-card,
+.el-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.search-card .el-card__body {
+  padding-bottom: 6px;
+}
+
+.search-card .el-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 12px;
+}
+
+.search-card .el-form-item {
+  margin-right: 0;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.el-button {
+  border-radius: 7px;
+}
+
+.el-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.el-table th.el-table__cell {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+}
+
+.el-table .el-button.is-link {
+  padding: 0 4px;
+}
+
+.el-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.el-dialog {
+  border-radius: 8px;
+}
+
+.el-dialog__header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.el-dialog__footer {
+  border-top: 1px solid #eef2f7;
+}
+
+.el-empty {
+  padding: 32px 0;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c4cc;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #909399;
+}
+
+@media (max-width: 768px) {
+  .search-card .el-form {
+    display: block;
+  }
+
+  .search-card .el-form-item {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .search-card .el-input,
+  .search-card .el-select {
+    width: 100%;
+  }
+
+  .toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .toolbar .el-button {
+    width: 100%;
+  }
+
+  .el-pagination {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

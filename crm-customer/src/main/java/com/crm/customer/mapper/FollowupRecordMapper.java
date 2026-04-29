@@ -1,0 +1,9 @@
+package com.crm.customer.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.crm.customer.entity.FollowupRecord;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface FollowupRecordMapper extends BaseMapper<FollowupRecord> {
+}

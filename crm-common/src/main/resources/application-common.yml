@@ -1,0 +1,12 @@
+# Shared local defaults loaded by each CRM service.
+# Nacos equivalent dataId: crm-common.yaml
+sa-token:
+  token-name: Authorization
+  timeout: 2592000
+  active-timeout: -1
+  is-concurrent: true
+  is-share: true
+  token-style: tik
+  is-read-header: true
+  is-read-body: false
+  is-log: false

@@ -1,0 +1,9 @@
+package com.crm.workflow.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.crm.workflow.entity.WorkflowTrace;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface WorkflowTraceMapper extends BaseMapper<WorkflowTrace> {
+}

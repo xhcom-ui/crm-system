@@ -1,0 +1,143 @@
+dataSources:
+  ds_auth_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/crm_auth_0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  ds_auth_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/crm_auth_1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  ds_customer_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/crm_customer_0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  ds_customer_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/crm_customer_1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  ds_service_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/crm_service_0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  ds_service_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/crm_service_1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  ds_marketing_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/crm_marketing_0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  ds_marketing_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/crm_marketing_1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+
+rules:
+  - !SHARDING
+    tables:
+      sys_oper_log:
+        actualDataNodes: ds_auth_${0..1}.sys_oper_log_${0..15}
+        databaseStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: auth_db_inline
+        tableStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: oper_log_table_inline
+      crm_customer_interaction:
+        actualDataNodes: ds_customer_${0..1}.crm_customer_interaction_${0..7}
+        databaseStrategy:
+          standard:
+            shardingColumn: contact_id
+            shardingAlgorithmName: customer_db_inline
+        tableStrategy:
+          standard:
+            shardingColumn: contact_id
+            shardingAlgorithmName: interaction_table_inline
+      crm_followup_record:
+        actualDataNodes: ds_customer_${0..1}.crm_followup_record_${0..7}
+        databaseStrategy:
+          standard:
+            shardingColumn: contact_id
+            shardingAlgorithmName: customer_db_inline
+        tableStrategy:
+          standard:
+            shardingColumn: contact_id
+            shardingAlgorithmName: followup_table_inline
+      crm_ticket:
+        actualDataNodes: ds_service_${0..1}.crm_ticket_${0..7}
+        databaseStrategy:
+          standard:
+            shardingColumn: contact_id
+            shardingAlgorithmName: service_db_inline
+        tableStrategy:
+          standard:
+            shardingColumn: contact_id
+            shardingAlgorithmName: ticket_table_inline
+      crm_campaign_performance:
+        actualDataNodes: ds_marketing_${0..1}.crm_campaign_performance_${0..7}
+        databaseStrategy:
+          standard:
+            shardingColumn: campaign_id
+            shardingAlgorithmName: marketing_db_inline
+        tableStrategy:
+          standard:
+            shardingColumn: campaign_id
+            shardingAlgorithmName: performance_table_inline
+    shardingAlgorithms:
+      auth_db_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_auth_${id % 2}
+      oper_log_table_inline:
+        type: INLINE
+        props:
+          algorithm-expression: sys_oper_log_${id % 16}
+      customer_db_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_customer_${contact_id % 2}
+      interaction_table_inline:
+        type: INLINE
+        props:
+          algorithm-expression: crm_customer_interaction_${contact_id % 8}
+      followup_table_inline:
+        type: INLINE
+        props:
+          algorithm-expression: crm_followup_record_${contact_id % 8}
+      service_db_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_service_${contact_id % 2}
+      ticket_table_inline:
+        type: INLINE
+        props:
+          algorithm-expression: crm_ticket_${contact_id % 8}
+      marketing_db_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_marketing_${campaign_id % 2}
+      performance_table_inline:
+        type: INLINE
+        props:
+          algorithm-expression: crm_campaign_performance_${campaign_id % 8}
+
+props:
+  sql-show: true
